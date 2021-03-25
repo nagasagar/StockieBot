@@ -13,8 +13,8 @@ async function execute(message,searchTicker) {
   }, 2000);
 
 }
-async function help(){
-  await discordActions.reply(msg, "_stockie get_ command expexts ticker symbolas input eg: _stockie get AAPL_")
+async function help(message){
+  await discordActions.replyToMessage(message, "_stockie get_ command expexts ticker symbolas input eg: _stockie get AAPL_")
 }
 
 async function getStockByTicker(searchTicker) {

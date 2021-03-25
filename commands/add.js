@@ -37,8 +37,8 @@ async function execute(message, ticker, entry, target) {
   }, 5000);
 }
 
-async function help(msg){
-  await discordActions.reply(msg, "_stockie add_ command expexts ticker,entry limit,target price as input eg: _stockie add AAPL 110 150_")
+async function help(message){
+  await discordActions.replyToMessage(message, "_stockie add_ command expexts ticker,entry limit,target price as input eg: _stockie add AAPL 110 150_")
 }
 
 module.exports.execute = execute;

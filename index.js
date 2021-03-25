@@ -69,8 +69,45 @@ client.on('message', async msg => {
         await client.commands.get('list').help(msg);
       }
     }
-    else if (parts[1] === 'remove' && parts[2] != null) {
-      client.commands.get('remove').execute(msg, parts[2]);
+    else if (parts[1] === 'remove') {
+      if (parts[2] === 'help') {
+        await client.commands.get('remove').help(msg);
+      } else if (parts[2] != null) {
+        client.commands.get('remove').execute(msg, parts[2]);
+      } else {
+        await client.commands.get('remove').help(msg);
+      }
+      
+    }
+    else if (parts[1] === 'status') {
+      if (parts[2] === 'help') {
+        await client.commands.get('status').help(msg);
+      } else if (parts[2] != null && parts[3] != null) {
+        client.commands.get('status').execute(msg, parts[2], parts[3]);
+      } else {
+        await client.commands.get('status').help(msg);
+      }
+      
+    }
+    else if (parts[1] === 'suggestor') {
+      if (parts[2] === 'help') {
+        await client.commands.get('suggestor').help(msg);
+      } else if (parts[2] != null && parts[3] != null) {
+        client.commands.get('suggestor').execute(msg, parts[2], parts[3]);
+      } else {
+        await client.commands.get('suggestor').help(msg);
+      }
+      
+    }
+    else if (parts[1] === 'note') {
+      if (parts[2] === 'help') {
+        await client.commands.get('note').help(msg);
+      } else if (parts[2] != null && parts[3] != null) {
+        client.commands.get('note').execute(msg, parts[2], parts[3]);
+      } else {
+        await client.commands.get('note').help(msg);
+      }
+      
     }
   } else if (parts[0] === WATCHIE_PREFIX) {
     return;

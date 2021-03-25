@@ -67,7 +67,7 @@ async function editRow(spreadsheetTabname, rowIndex, updatedRow) {
     request.auth = authorization;
     request.range = spreadsheetTabname + "!" + rowIndex + ":" + rowIndex;
     request['resource'] = { "values": [updatedRow] };
-    const response = await sheets.spreadsheets.values.update(getRerequestquestParameters);
+    const response = await sheets.spreadsheets.values.update(request);
     return response.data;
   }
   catch (error) {
@@ -82,19 +82,20 @@ async function deleteRow(spreadsheetTabGid, rowIndex) {
     request.auth = authorization;
     request['resource'] = {
       "requests": [{
-        "deleteRange": {
+        "deleteDimension": {
           "range":
           {
             "sheetId": spreadsheetTabGid, // gid
-            "startRowIndex": rowIndex,
-            "endRowIndex": rowIndex + 1
-          }, "shiftDimension": "ROWS"
+            "startIndex": rowIndex,
+            "endIndex": rowIndex + 1,
+            "dimension": "ROWS"
+          }
         }
       }
       ]
     }
     const response = await sheets.spreadsheets.batchUpdate(request);
-    return response.data.values;
+    return response.data;
   }
   catch (error) {
     console.log(error)

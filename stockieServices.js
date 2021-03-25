@@ -23,28 +23,8 @@ async function editStock(jsonObject) {
     return googleSheetApi.editRow(process.env.POSITIONS_SPREADSHEET_TAB,parseInt(jsonObject.sln)+1, appendRow);
 }
 
-async function deleteStock(slno) {
-    //TODO
-    const appendRow = await servicehelper.buildRow(jsonObject);
-    return googleSheetApi.deleteRow(process.env.POSITIONS_SPREADSHEET_TAB, appendRow);
-}
-
-async function setStockSold(ticker) {
-    //TODO
-    const appendRow = await servicehelper.buildRow(jsonObject);
-    return googleSheetApi.editRow(process.env.POSITIONS_SPREADSHEET_TAB, appendRow);
-}
-
-async function setStockSuggestor(slno, suggestor) {
-    //TODO
-    const appendRow = await servicehelper.buildRow(jsonObject);
-    return googleSheetApi.editRow(process.env.POSITIONS_SPREADSHEET_TAB, appendRow);
-}
-
-async function addStockNote(slno, note) {
-    //TODO
-    const appendRow = await servicehelper.buildRow(jsonObject);
-    return googleSheetApi.editRow(process.env.POSITIONS_SPREADSHEET_TAB, appendRow);
+async function deleteStock(jsonObject) {
+    return googleSheetApi.deleteRow(process.env.POSITIONS_SPREADSHEET_GID, parseInt(jsonObject.sln));
 }
 
 async function formatStockDetail(stockobject) {

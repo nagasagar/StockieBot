@@ -13,8 +13,8 @@ async function execute(message,resultSize) {
   }, 2000);
 
 }
-async function help(msg){
-  await discordActions.replyToMessage(msg, "_stockie list_ command expects size eg: _stockie list 10_ retrieve 10 latest stocks")
+async function help(message){
+  await discordActions.replyToMessage(message, "_stockie list_ command expects size eg: _stockie list 10_ retrieve 10 latest stocks")
 }
 
 async function getLatestNStock(resultSize) {

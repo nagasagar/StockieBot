@@ -1,6 +1,7 @@
 const googleSheetApi = require('./GoogleSheetApi');
 const servicehelper = require('./servicehelpers');
 const stringTable = require('string-table');
+const Table = require('cli-table');
 
 const STOCKIE_PREFIX = process.env.STOCKIE_PREFIX;
 const WATCHIE_PREFIX = process.env.WATCHIE_PREFIX;
@@ -141,36 +142,26 @@ async function formatStockBreif(msg, stockobject) {
 }
 
 async function formatStockList(msg, stocklist) {
+    var table = new Table({
+        head: ['#no', 'Tickr', 'Entry', 'Targt', 'Curnt']
+      , colWidths: [5, 7, 7, 7, 7]
+    });
     const content = msg.content;
     const parts = content.split(' ');
     let entries = [];
     if (parts[0] === STOCKIE_PREFIX) {
         stocklist.forEach(e =>{
-            let entry = {
-                SLN: e.sln,
-                TICKER: e.ticker,
-                ENTRY: e.entry_limit,
-                TARGET: e.target_price,
-                CURRENT: e.current_price 
-            }
-            entries.push(entry)
+            table.push([e.sln, e.ticker, e.entry_limit, e.target_price,e.current_price])
         });
     }else if (parts[0] === WATCHIE_PREFIX) {
         stocklist.forEach(e =>{
-            let entry = {
-                SLN: e.sln,
-                TICKER: e.ticker,
-                ENTRY: e.entry_limit,
-                TARGET: e.target_price,
-                CURRENT: e.current_price 
-            }
-            entries.push(entry)
+            table.push([e.sln, e.ticker, e.entry_limit, e.target_price,e.current_price])
         });
     } else {
         return;
     }
-    var resp= await stringTable.create(entries);
-    return resp;
+    var strtable = "`"+"\n"+table.toString()+"\n"+"`";
+    return strtable;
 }
 
 

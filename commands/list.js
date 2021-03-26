@@ -1,14 +1,27 @@
 const stockie = require('../stockieServices');
 const discordActions = require('../discordActions');
 
+const STOCKIE_PREFIX = process.env.STOCKIE_PREFIX;
+const WATCHIE_PREFIX = process.env.WATCHIE_PREFIX;
+
 async function execute(message,resultSize) {
-  setTimeout(async function () {  
+  setTimeout(async function () { 
+    const content = message.content;
+    const parts = content.split(' ');
     var lastNStocks  = await getLatestNStock(message,resultSize);
     if (lastNStocks) {
       var resp = await stockie.formatStockList(message,lastNStocks);
       discordActions.respondToChannel(message,resp);
-      var link2sheet = "See complete list here -> <"+ process.env.SHEET_URL+">";
-      discordActions.respondToChannel(message,link2sheet);
+      if (parts[0] === STOCKIE_PREFIX) {
+        var link2sheet = "See complete list here -> <"+ process.env.POSITIONS_URL+">";
+        discordActions.respondToChannel(message,link2sheet);
+      }else if (parts[0] === WATCHIE_PREFIX) {
+        var link2sheet = "See complete list here -> <"+ process.env.WATCHLIST_URL+">";
+        discordActions.respondToChannel(message,link2sheet);
+      }else{
+        discordActions.respondToChannel(message,"unknown command");
+      }
+      
     } else {
       discordActions.respondToChannel(message,"No Results are found");
     }

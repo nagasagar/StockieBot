@@ -1,6 +1,5 @@
 const googleSheetApi = require('./GoogleSheetApi');
 const servicehelper = require('./servicehelpers');
-const stringTable = require('string-table');
 const Table = require('cli-table');
 
 const STOCKIE_PREFIX = process.env.STOCKIE_PREFIX;

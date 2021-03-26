@@ -3,9 +3,9 @@ const discordActions = require('../discordActions');
 
 async function execute(message,searchTicker) {
   setTimeout(async function () {  
-    var foundStock  = await getStockByTicker(searchTicker);
+    var foundStock  = await getStockByTicker(message, searchTicker);
     if (foundStock) {
-      var resp = await stockie.formatStockDetail(foundStock);
+      var resp = await stockie.formatStockDetail(message, foundStock);
       discordActions.respondToChannel(message,resp);
     } else {
       discordActions.respondToChannel(message,"Ticker Not Found");
@@ -14,11 +14,11 @@ async function execute(message,searchTicker) {
 
 }
 async function help(message){
-  await discordActions.replyToMessage(message, "_stockie get_ command expexts ticker symbolas input eg: _stockie get AAPL_")
+  await discordActions.replyToMessage(message, "_[stockie/watchie] get_ command expexts ticker symbolas input eg: _stockie get AAPL_. same syntax with watchie")
 }
 
-async function getStockByTicker(searchTicker) {
-  const existingStocks = await stockie.getStocks();
+async function getStockByTicker(message, searchTicker) {
+  const existingStocks = await stockie.getStocks(message);
   var searchStock = null;
   existingStocks.forEach(s => {
     if (s.ticker.toUpperCase() === searchTicker.toUpperCase()) {

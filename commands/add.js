@@ -5,7 +5,7 @@ var months    = ['January','February','March','April','May','June','July','Augus
 
 async function execute(message, ticker, entry, target) {
   setTimeout(async function () {
-    var foundStock  = await get.getStockByTicker(ticker);
+    var foundStock  = await get.getStockByTicker(message,ticker);
     if (foundStock) {
       discordActions.respondToChannel(message,"Ticker ["+ticker+"] already exist, used _stockie edit <ticker>_ to edit.");
     } else {
@@ -23,22 +23,22 @@ async function execute(message, ticker, entry, target) {
         added_by: message.author.username,
         suggested_by : 'THAKUR',
         note : '',
-        status : 'HOLDING'
+        status : 'ON'
       }
-      var response = await stockie.appendStock(newStock);
+      var response = await stockie.appendStock(message, newStock);
       if(response){
-        var addedStock = await get.getStockByTicker(ticker);
-        var addedstockStr = await stockie.formatStockBreif(addedStock);
+        var addedStock = await get.getStockByTicker(message, ticker);
+        var addedstockStr = await stockie.formatStockBreif(message, addedStock);
         discordActions.respondToChannel(message, "Stock added successfully \n"+addedstockStr);
       }else{
-        discordActions.respondToChannel("Stock could not be added. report this to admin")
+        discordActions.respondToChannel(message, "Stock could not be added. report this to admin")
       }
     }
   }, 5000);
 }
 
 async function help(message){
-  await discordActions.replyToMessage(message, "_stockie add_ command expexts ticker,entry limit,target price as input eg: _stockie add AAPL 110 150_")
+  await discordActions.replyToMessage(message, "_[stockie/watchie] add_ command expexts ticker,entry limit,target price as input eg: _stockie add AAPL 110 150_")
 }
 
 module.exports.execute = execute;

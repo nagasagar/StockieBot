@@ -4,9 +4,9 @@ const get = require('./get');
 
 async function execute(message, ticker) {
   setTimeout(async function () {  
-    var foundStock  = await get.getStockByTicker(ticker);
+    var foundStock  = await get.getStockByTicker(message,ticker);
     if (foundStock) {
-      var response = await stockie.deleteStock(foundStock);
+      var response = await stockie.deleteStock(message,foundStock);
       if(response){
         discordActions.respondToChannel(message,foundStock.ticker+"("+foundStock.company+")"+" - Deleted successfully");
       }
@@ -20,7 +20,7 @@ async function execute(message, ticker) {
 
 }
 async function help(message){
-  await discordActions.replyToMessage(message, "_stockie remove_ command expexts ticker symbolas input eg: _stockie remove AAPL_")
+  await discordActions.replyToMessage(message, "_[stockie/watchie] remove_ command expexts ticker symbolas input eg: _stockie remove AAPL_")
 }
 
 module.exports.execute = execute;

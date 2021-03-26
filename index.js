@@ -3,8 +3,8 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
 
-const STOCKIE_PREFIX = 'stockie';
-const WATCHIE_PREFIX = 'watchie';
+const STOCKIE_PREFIX = process.env.STOCKIE_PREFIX;
+const WATCHIE_PREFIX = process.env.WATCHIE_PREFIX;
 
 client.commands = new Discord.Collection();
 
@@ -27,7 +27,7 @@ client.on('message', async msg => {
     await client.commands.get('ping').execute(msg);
     return;
   }
-  if (parts[0] === STOCKIE_PREFIX) {
+  if (parts[0] === STOCKIE_PREFIX || parts[0] === WATCHIE_PREFIX) {
     if (parts.length === 1) {
       msg.reply("Hey There!! i am online!");
     } else if (parts[1] === 'help') {
@@ -109,8 +109,6 @@ client.on('message', async msg => {
       }
       
     }
-  } else if (parts[0] === WATCHIE_PREFIX) {
-    return;
   } else {
     return;
   }

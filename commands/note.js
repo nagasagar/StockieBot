@@ -5,16 +5,16 @@ var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
 
 async function execute(message, ticker, note) {
   setTimeout(async function () {
-    var foundStock = await get.getStockByTicker(ticker);
+    var foundStock = await get.getStockByTicker(message,ticker);
     if (foundStock) {
       foundStock.note = note;
       foundStock.added_by = message.author.username;
       var date_obj = new Date();
       foundStock.entry_date = date_obj.getDate()+'/'+ months[date_obj.getMonth()]+'/'+date_obj.getFullYear()
-      var response = await stockie.editStock(foundStock);
+      var response = await stockie.editStock(message,foundStock);
       if (response) {
-        var addedStock = await get.getStockByTicker(ticker);
-        var addedstockStr = await stockie.formatStockDetail(addedStock);
+        var addedStock = await get.getStockByTicker(message,ticker);
+        var addedstockStr = await stockie.formatStockDetail(message,addedStock);
         discordActions.respondToChannel(message,"Stock edited successfully \n" + addedstockStr);
       } else {
         discordActions.respondToChannel(message,"Stock could not be edited. report this to admin");
@@ -26,7 +26,7 @@ async function execute(message, ticker, note) {
 }
 
 async function help(message) {
-  await discordActions.replyToMessage(message, "_stockie note_ command expexts ticker, note as input eg: _stockie note AAPL stoploss-at-100_ ,please add notes-with-out-spaces-use-minus-instead-of-space.This is currently a limitation")
+  await discordActions.replyToMessage(message, "_[stockie/watchie] note_ command expexts ticker, note as input eg: _stockie note AAPL stoploss-at-100_ ,please add notes-with-out-spaces-use-minus-instead-of-space.This is currently a limitation")
 }
 
 module.exports.execute = execute;

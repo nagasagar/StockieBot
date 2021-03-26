@@ -2,6 +2,13 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Bot is online!'));
+
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
 const STOCKIE_PREFIX = process.env.STOCKIE_PREFIX;
 const WATCHIE_PREFIX = process.env.WATCHIE_PREFIX;

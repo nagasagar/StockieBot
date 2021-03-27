@@ -12,10 +12,10 @@ async function execute(message,resultSize) {
     if (lastNStocks) {
       var resp = await stockie.formatStockList(message,lastNStocks);
       discordActions.respondToChannel(message,resp);
-      if (parts[0] === STOCKIE_PREFIX) {
+      if (parts[0].toUpperCase() === STOCKIE_PREFIX.toUpperCase()) {
         var link2sheet = "See complete list here -> <"+ process.env.POSITIONS_URL+">";
         discordActions.respondToChannel(message,link2sheet);
-      }else if (parts[0] === WATCHIE_PREFIX) {
+      }else if (parts[0].toUpperCase() === WATCHIE_PREFIX.toUpperCase()) {
         var link2sheet = "See complete list here -> <"+ process.env.WATCHLIST_URL+">";
         discordActions.respondToChannel(message,link2sheet);
       }else{

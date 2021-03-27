@@ -165,7 +165,7 @@ async function formatStockList(msg, stocklist) {
 }
 
 function fixFormulas(jsonObject){   
-    jsonObject.slno = '=ROW()-1';
+    jsonObject.sln = '=ROW()-1';
     jsonObject.company = '=GOOGLEFINANCE(B:B, "name")';
     jsonObject.current_price = '=GOOGLEFINANCE(B:B, "price")';
     jsonObject.gapto_target = '=F:F-E:E',

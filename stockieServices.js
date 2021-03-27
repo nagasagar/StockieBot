@@ -52,15 +52,16 @@ async function appendStock(msg, jsonObject) {
 }
 
 async function editStock(msg, jsonObject) {
+    var sln = jsonObject.sln;
     fixFormulas(jsonObject)
     const content = msg.content;
     const parts = content.split(' ');
     if (parts[0].toUpperCase() === STOCKIE_PREFIX.toUpperCase()) {
         const appendRow = await servicehelper.buildRow(jsonObject);
-        return googleSheetApi.editRow(process.env.POSITIONS_SPREADSHEET_TAB,parseInt(jsonObject.sln)+1, appendRow);
+        return googleSheetApi.editRow(process.env.POSITIONS_SPREADSHEET_TAB,parseInt(sln)+1, appendRow);
     }else if (parts[0].toUpperCase() === WATCHIE_PREFIX.toUpperCase()) {
         const appendRow = await servicehelper.buildRow(jsonObject);
-        return googleSheetApi.editRow(process.env.WATCHLIST_SPREADSHEET_TAB,parseInt(jsonObject.sln)+1, appendRow);
+        return googleSheetApi.editRow(process.env.WATCHLIST_SPREADSHEET_TAB,parseInt(sln)+1, appendRow);
     } else {
         return;
     }

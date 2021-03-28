@@ -1,6 +1,6 @@
 const googleSheetApi = require('./GoogleSheetApi');
 const servicehelper = require('./servicehelpers');
-const Table = require('cli-table');
+const Table = require('cli-table3');
 
 const STOCKIE_PREFIX = process.env.STOCKIE_PREFIX;
 const WATCHIE_PREFIX = process.env.WATCHIE_PREFIX;
@@ -146,6 +146,7 @@ async function formatStockList(msg, stocklist) {
     var table = new Table({
         head: ['#no', 'Tickr', 'Entry', 'Targt', 'Curnt']
       , colWidths: [5, 7, 7, 7, 7]
+      , style: { head: [], border: [] }
     });
     const content = msg.content;
     const parts = content.split(' ');
